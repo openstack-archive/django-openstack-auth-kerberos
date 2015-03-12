@@ -1,0 +1,7 @@
+[run]
+branch = True
+source = replace with the name of the package under oslo
+omit = replace with the name of the package under oslo/tests/*,replace with the name of the package under oslo/openstack/*
+
+[report]
+ignore-errors = True
