@@ -14,12 +14,8 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from openstack_auth import utils
-
-utils.patch_middleware_get_user()
-
 
 urlpatterns = patterns(
     'openstack_auth_kerberos.views',
-    url(r"^kerberos/$", "kerb_login", name='kerb_login'),
+    url(r'^kerberos/$', 'kerb_login', name='kerberos_login'),
 )

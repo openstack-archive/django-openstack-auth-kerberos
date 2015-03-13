@@ -13,11 +13,13 @@
 
 import logging
 import re
+import time
 
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required  # noqa
 from django import http as django_http
+from django import shortcuts
 from django.utils import http
 from django.views.decorators.cache import never_cache  # noqa
 from django.views.decorators.csrf import csrf_exempt  # noqa
@@ -46,6 +48,13 @@ def kerb_login(request):
     """Attempt to log a user in via kerberos credential."""
     user = auth.authenticate(request=request)
 
-    if user:
+    if user and user.is_authenticated():
         auth.login(request, user)
         res = shortcuts.redirect(settings.LOGIN_REDIRECT_URL)
+
+        auth_user.set_session_from_user(request, user)
+        request.session['last_activity'] = int(time.time())
+    else:
+        res = shortcuts.redirect('/l')
+
+    return res

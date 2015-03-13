@@ -12,8 +12,26 @@
 
 import os
 
+from keystoneclient import auth
 from keystoneclient_kerberos import v3 as v3_kerb_auth
 from openstack_auth import base
+
+
+class _HackedKerbAuth(v3_kerb_auth.Kerberos):
+
+    def __init__(self, auth_url, original_auth_url):
+        self.original_auth_url = original_auth_url
+        super(_HackedKerbAuth, self).__init__(auth_url=auth_url)
+
+    def get_endpoint(self, session, **kwargs):
+        # NOTE(jamielennox): This is a hack to return the actual AUTH_URL
+        # rather than the one with the kerberos path, other wise project
+        # listing tries to work on the kerberized path and will fail.
+        if kwargs.get('interface') == auth.AUTH_INTERFACE:
+            return self.original_auth_url
+
+        return super(_HackedKerbAuth, self).get_endpoint(session, **kwargs)
+
 
 
 class KerberosLogin(base.BaseIdentityAuthentication):
@@ -32,9 +50,11 @@ class KerberosLogin(base.BaseIdentityAuthentication):
 
         os.environ['KRB5CCNAME'] = ticket
 
+        original_auth_url = auth_url
+
         # FIXME(jamielennox): get this from settings
         s = auth_url.split('/')
         s.insert(-1, 'krb')
         auth_url = '/'.join(s)
 
-        return v3_kerb_auth.Kerberos(auth_url=auth_url)
+        return _HackedKerbAuth(auth_url, original_auth_url)
