@@ -12,14 +12,12 @@
 # limitations under the License.
 
 import logging
-import re
 import time
 
 from django.conf import settings
 from django.contrib import auth
 from django import http as django_http
 from django import shortcuts
-from django.utils import http
 from django.views.decorators.cache import never_cache  # noqa
 from django.views.decorators.csrf import csrf_exempt  # noqa
 from django.views.decorators.csrf import csrf_protect  # noqa
@@ -29,7 +27,6 @@ from django.views.decorators.debug import sensitive_post_parameters  # noqa
 # Horizon, fix to Horizon to remove this requirement was committed in
 # Juno
 from openstack_auth import user as auth_user
-from openstack_auth import utils
 
 LOG = logging.getLogger(__name__)
 
@@ -37,7 +34,7 @@ LOG = logging.getLogger(__name__)
 @sensitive_post_parameters()
 @csrf_exempt
 @never_cache
-def kerb_login(request):
+def kerberos_login(request):
     """Attempt to log a user in via kerberos credential."""
     user = auth.authenticate(request=request)
 

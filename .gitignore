@@ -49,3 +49,6 @@ ChangeLog
 # Editors
 *~
 .*.swp
+
+doc/source/api
+doc/source/modules.rst

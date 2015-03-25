@@ -16,6 +16,13 @@ Contents
    contributing
    history
 
+Code Documentation
+==================
+.. toctree::
+   :maxdepth: 1
+
+   api/modules
+
 Indices and tables
 ==================
 

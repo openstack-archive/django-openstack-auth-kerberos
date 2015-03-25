@@ -4,5 +4,6 @@
 
 Babel>=0.9.6
 
+Django>=1.4.2,<1.7
 django_openstack_auth>=1.1.7,!=1.1.8
 python-keystoneclient-kerberos

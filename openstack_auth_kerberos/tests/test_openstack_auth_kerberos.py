@@ -12,13 +12,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""
-test_replace with the name of the package under oslo
-----------------------------------
-
-Tests for `replace with the name of the package under oslo` module.
-"""
-
 from oslotest import base
 
 
