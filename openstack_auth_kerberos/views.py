@@ -17,7 +17,6 @@ import time
 
 from django.conf import settings
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required  # noqa
 from django import http as django_http
 from django import shortcuts
 from django.utils import http
@@ -31,12 +30,6 @@ from django.views.decorators.debug import sensitive_post_parameters  # noqa
 # Juno
 from openstack_auth import user as auth_user
 from openstack_auth import utils
-
-try:
-    is_safe_url = http.is_safe_url
-except AttributeError:
-    is_safe_url = utils.is_safe_url
-
 
 LOG = logging.getLogger(__name__)
 
@@ -55,6 +48,10 @@ def kerb_login(request):
         auth_user.set_session_from_user(request, user)
         request.session['last_activity'] = int(time.time())
     else:
-        res = shortcuts.redirect('/l')
+        # NOTE(jamielennox): If horizon is configured correctly this would
+        # imply that you got a kerberos ticket however you couldn't be logged
+        # into keystone. Not much we can do here, throw a 401 so that apache
+        # will trigger a redirect to form login.
+        res = django_http.HttpResponse('Unauthorized', status=401)
 
     return res
