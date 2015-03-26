@@ -17,5 +17,5 @@ from django.conf.urls import url
 
 urlpatterns = patterns(
     'openstack_auth_kerberos.views',
-    url(r'^kerberos/$', 'kerbos_login', name='kerberos_login'),
+    url(r'^kerberos/$', 'kerberos_login', name='kerberos_login'),
 )
