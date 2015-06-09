@@ -1,4 +1,7 @@
-global:Registered-Users	Registered Users
+# UUID                                  	Group Name
+#
+3c5e696b3c0aaeb02ef6bd64988ae84549df97f3	horizon-release
 87fdaef9b13c4101a594e0b2b3481cd0cfae29ae	horizon-core
 9cfed558c620efded581d2bb1c5fcf95d92f24aa	horizon-stable-maint
-3c5e696b3c0aaeb02ef6bd64988ae84549df97f3	horizon-release
+global:Registered-Users                 	Registered Users
+user:jamielennox                        	user/Jamie Lennox (jamielennox)
