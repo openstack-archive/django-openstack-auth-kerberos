@@ -61,7 +61,7 @@ class Kerberos(plugin.BasePlugin):
 
         if not self.login_url:
             LOG.warning('Kerberos authentication configured, but no '
-                     '"%s" defined in settings.', AUTH_SETTING_NAME)
+                        '"%s" defined in settings.', AUTH_SETTING_NAME)
 
     def get_plugin(self, request=None, auth_url=None, **kwargs):
         if not (request and auth_url):
