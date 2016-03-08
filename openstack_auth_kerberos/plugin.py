@@ -14,8 +14,8 @@ import logging
 import os
 
 from django.conf import settings
-from keystoneclient import auth
-from keystoneclient_kerberos import v3 as v3_kerb_auth
+from keystoneauth1.extras import kerberos
+from keystoneauth1 import plugin as ksa_plugin
 from openstack_auth import plugin
 
 ENV_NAME = 'KRB5CCNAME'
@@ -23,7 +23,7 @@ AUTH_SETTING_NAME = 'KERBEROS_AUTH_URL'
 LOG = logging.getLogger(__name__)
 
 
-class _HackedKerbAuth(v3_kerb_auth.Kerberos):
+class _HackedKerbAuth(kerberos.Kerberos):
 
     def __init__(self, auth_url, original_auth_url, ticket):
         super(_HackedKerbAuth, self).__init__(auth_url=auth_url)
@@ -34,7 +34,7 @@ class _HackedKerbAuth(v3_kerb_auth.Kerberos):
         # NOTE(jamielennox): This is a hack to return the actual AUTH_URL
         # rather than the one with the kerberos path, other wise project
         # listing tries to work on the kerberized path and will fail.
-        if kwargs.get('interface') == auth.AUTH_INTERFACE:
+        if kwargs.get('interface') == ksa_plugin.AUTH_INTERFACE:
             return self.original_auth_url
 
         return super(_HackedKerbAuth, self).get_endpoint(session, **kwargs)
