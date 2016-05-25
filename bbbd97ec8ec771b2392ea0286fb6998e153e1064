@@ -1,0 +1,11 @@
+Code-Review+1: venkatamahesh <venkatamaheshkotha@gmail.com>
+Code-Review+1: Reedip <reedip.banerjee@nectechnologies.in>
+Code-Review+1: Ronald Bradford <ronald.bradford@gmail.com>
+Code-Review+2: Rob Cresswell <robert.cresswell@outlook.com>
+Workflow+1: Rob Cresswell <robert.cresswell@outlook.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 25 May 2016 12:17:44 +0000
+Reviewed-on: https://review.openstack.org/260775
+Project: openstack/django-openstack-auth-kerberos
+Branch: refs/heads/master
